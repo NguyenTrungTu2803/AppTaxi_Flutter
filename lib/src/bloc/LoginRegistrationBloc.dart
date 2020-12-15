@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter_ap/src/firebase/AuthFireBase.dart';
 import 'package:flutter_ap/src/validators/RegistrationValidator.dart';
 
-class RegistrationBloc {
+class LoginRegistrationBloc {
   AuthFireBase authFireBase = AuthFireBase();
   StreamController _nameSC = StreamController();
   StreamController _phoneSC = StreamController();
@@ -38,15 +38,39 @@ class RegistrationBloc {
     return true;
   }
 
-  void signUp(String name, String email, String phone, String pass,
+  bool isValidLogin(String email, String pass) {
+    if (!RegistrationValidator.isValidEmail(email)) {
+      _emailSC.sink.addError("UserName Failed");
+      return false;
+    }
+    _emailSC.sink.add("Ok");
+    if (!RegistrationValidator.isValidPass(pass)) {
+      _passSC.sink.addError("PassWord Failed");
+      return false;
+    }
+    _passSC.sink.add("Ok");
+    return true;
+  }
+
+  signUp(String name, String email, String phone, String pass,
       Function onSuccess, Function(String) onRegisterError) {
     authFireBase.signUp(name, email, pass, phone, onSuccess, onRegisterError);
   }
 
-  void dispose() {
+  signIn(String email, String pass, Function onSuccess,
+      Function(String) onRegisterError) {
+    authFireBase.signIn(email, pass, onSuccess, onRegisterError);
+  }
+
+  disposeRegistration() {
     _nameSC.close();
     _emailSC.close();
     _phoneSC.close();
+    _passSC.close();
+  }
+
+  disposeLogin() {
+    _emailSC.close();
     _passSC.close();
   }
 }

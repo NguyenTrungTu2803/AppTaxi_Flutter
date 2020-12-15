@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_ap/src/bloc/RegistrationBloc.dart';
+import 'package:flutter_ap/src/bloc/LoginRegistrationBloc.dart';
 import 'package:flutter_ap/src/resource/LoginPage.dart';
 import 'package:flutter_ap/src/resource/dialog/LoadingDialog.dart';
 import 'package:flutter_ap/src/resource/dialog/MessengerDialog.dart';
@@ -14,7 +14,7 @@ class RegistrationPage extends StatefulWidget {
 }
 
 class _RegistrationPage extends State<RegistrationPage> {
-  RegistrationBloc _registrationBloc = new RegistrationBloc();
+  LoginRegistrationBloc _registrationBloc = new LoginRegistrationBloc();
 
   TextEditingController _tecName = new TextEditingController();
   TextEditingController _tecPhone = new TextEditingController();
@@ -24,7 +24,7 @@ class _RegistrationPage extends State<RegistrationPage> {
   bool _showPass = false;
   @override
   void dispose() {
-    _registrationBloc.dispose();
+    _registrationBloc.disposeRegistration();
     super.dispose();
   }
 

@@ -3,9 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_ap/src/bloc/LoginBloc.dart';
+import 'package:flutter_ap/src/app.dart';
 import 'package:flutter_ap/src/resource/RegistrationPage.dart';
+import 'package:flutter_ap/src/resource/dialog/MessengerDialog.dart';
 import 'HomePage.dart';
+import 'dialog/LoadingDialog.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -13,15 +15,20 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  LoginBloc bloc = new LoginBloc();
-
-  TextEditingController _userEditingController = new TextEditingController();
-  TextEditingController _passEditingController = new TextEditingController();
+  TextEditingController _emailEditingController = TextEditingController();
+  TextEditingController _passEditingController = TextEditingController();
 
   bool _showPass = false;
 
+  get _mLogin => MyApp.of(context).mLoginRegistrationBloc;
+  @override
+  void dispose() {
+    _mLogin.disposeLogin();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
+
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
         systemNavigationBarColor: Colors.white,
         systemNavigationBarDividerColor: Colors.white));
@@ -53,36 +60,46 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-                  child: TextField(
-                      style: TextStyle(fontSize: 18, color: Colors.black),
-                      decoration: InputDecoration(
-                        labelText: "Email",
-                        prefixIcon: Container(
-                          width: 5,
-                          child: Image.asset('assets/ic_email.png'),
-                        ),
-                        border: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: Color(0xffCED0D2), width: 1),
-                            borderRadius: BorderRadius.all(Radius.circular(6))),
-                      )),
+                  child: StreamBuilder(
+                    stream: _mLogin.emailS,
+                    builder: (context, snapShot)=> TextField(
+                        controller: _emailEditingController,
+                        style: TextStyle(fontSize: 18, color: Colors.black),
+                        decoration: InputDecoration(
+                          errorText: snapShot.hasError ? snapShot.error : "",
+                          labelText: "Email",
+                          prefixIcon: Container(
+                            width: 5,
+                            child: Image.asset('assets/ic_email.png'),
+                          ),
+                          border: OutlineInputBorder(
+                              borderSide:
+                              BorderSide(color: Color(0xffCED0D2), width: 1),
+                              borderRadius: BorderRadius.all(Radius.circular(6))),
+                        )),
+                  )
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-                  child: TextField(
-                      obscureText: true,
-                      style: TextStyle(fontSize: 18, color: Colors.black),
-                      decoration: InputDecoration(
-                        labelText: "PassWord",
-                        prefixIcon: Container(
-                          width: 5,
-                          child: Image.asset('assets/ic_password.png'),
-                        ),
-                        border: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: Color(0xffCED0D2), width: 1),
-                            borderRadius: BorderRadius.all(Radius.circular(6))),
-                      )),
+                  child: StreamBuilder(
+                    stream: _mLogin.passS,
+                    builder: (context, snapShot)=> TextField(
+                        obscureText: true,
+                        controller: _passEditingController,
+                        style: TextStyle(fontSize: 18, color: Colors.black),
+                        decoration: InputDecoration(
+                          errorText: snapShot.hasError ? snapShot.error : "",
+                          labelText: "PassWord",
+                          prefixIcon: Container(
+                            width: 5,
+                            child: Image.asset('assets/ic_password.png'),
+                          ),
+                          border: OutlineInputBorder(
+                              borderSide:
+                              BorderSide(color: Color(0xffCED0D2), width: 1),
+                              borderRadius: BorderRadius.all(Radius.circular(6))),
+                        )),
+                  )
                 ),
                 Container(
                     width: double.infinity,
@@ -103,7 +120,7 @@ class _LoginPageState extends State<LoginPage> {
                     height: 56,
                     child: RaisedButton(
                       color: Colors.blue,
-                      onPressed: onClickSignIn,
+                      onPressed: _onClickSignIn,
                       child: Text(
                         "Sign In",
                         style: TextStyle(color: Colors.white, fontSize: 16),
@@ -142,11 +159,29 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void onClickSignIn() {
+  _onClickSignIn() {
+    String _email = _emailEditingController.text;
+    String _pass = _passEditingController.text;
     setState(() {
-      // if(bloc.isValidInfo(_userEditingController.text, _passEditingController.text)){
-      //   Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()));
-      // }
+      if(_mLogin.isValidLogin(_email, _pass)){
+        LoadingDialog.showLoadingDialog(context, "Loading...");
+        _mLogin.signIn(_email, _pass, (){
+          LoadingDialog.hideLoadingDialog(context);
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()));
+        }, (msg){
+          LoadingDialog.hideLoadingDialog(context);
+          MessengerDialog.showMessengerDialog(context, "Sign-In", msg);
+        });
+      }
     });
   }
+
 }
+
+
+
+
+
+
+
+

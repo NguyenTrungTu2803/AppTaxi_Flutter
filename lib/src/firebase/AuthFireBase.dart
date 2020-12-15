@@ -1,12 +1,19 @@
-
-
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 class AuthFireBase{
 
   FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  signIn(String email, String pass, Function onSuccess, Function(String) onSignInError){
+    _firebaseAuth.signInWithEmailAndPassword(email: email, password: pass)
+        .then((user){
+      print("On sign-In success");
+      onSuccess();
+    })
+    .catchError((onError){
+      onSignInError("Sign-In fail. Please try again");
+    });
+  }
   signUp(String name, String email, String pass, String phone, Function onSuccess, Function(String) onRegisterError){
      _firebaseAuth.createUserWithEmailAndPassword(email: email, password: pass).then((user){
        print(user);
