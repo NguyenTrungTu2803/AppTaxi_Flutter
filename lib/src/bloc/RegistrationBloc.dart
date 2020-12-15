@@ -3,11 +3,11 @@ import 'package:flutter_ap/src/firebase/AuthFireBase.dart';
 import 'package:flutter_ap/src/validators/RegistrationValidator.dart';
 
 class RegistrationBloc {
-  AuthFireBase authFireBase = new AuthFireBase();
-  StreamController _nameSC = new StreamController();
-  StreamController _phoneSC = new StreamController();
-  StreamController _emailSC = new StreamController();
-  StreamController _passSC = new StreamController();
+  AuthFireBase authFireBase = AuthFireBase();
+  StreamController _nameSC = StreamController();
+  StreamController _phoneSC = StreamController();
+  StreamController _emailSC = StreamController();
+  StreamController _passSC = StreamController();
 
   Stream get nameS => _nameSC.stream;
   Stream get phoneS => _phoneSC.stream;

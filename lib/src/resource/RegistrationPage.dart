@@ -14,7 +14,7 @@ class RegistrationPage extends StatefulWidget {
 }
 
 class _RegistrationPage extends State<RegistrationPage> {
-  RegistrationBloc registrationBloc = new RegistrationBloc();
+  RegistrationBloc _registrationBloc = new RegistrationBloc();
 
   TextEditingController _tecName = new TextEditingController();
   TextEditingController _tecPhone = new TextEditingController();
@@ -24,7 +24,7 @@ class _RegistrationPage extends State<RegistrationPage> {
   bool _showPass = false;
   @override
   void dispose() {
-    registrationBloc.dispose();
+    _registrationBloc.dispose();
     super.dispose();
   }
 
@@ -63,7 +63,7 @@ class _RegistrationPage extends State<RegistrationPage> {
                 Padding(
                     padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                     child: StreamBuilder(
-                      stream: registrationBloc.nameS,
+                      stream: _registrationBloc.nameS,
                       builder: (context, snapshot) => TextField(
                         controller: _tecName,
                         style: TextStyle(color: Colors.black, fontSize: 18),
@@ -86,7 +86,7 @@ class _RegistrationPage extends State<RegistrationPage> {
                 Padding(
                     padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                     child: StreamBuilder(
-                      stream: registrationBloc.phoneS,
+                      stream: _registrationBloc.phoneS,
                       builder: (context, snapShot) => TextField(
                         controller: _tecPhone,
                         keyboardType: TextInputType.number,
@@ -110,7 +110,7 @@ class _RegistrationPage extends State<RegistrationPage> {
                 Padding(
                     padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                     child: StreamBuilder(
-                      stream: registrationBloc.emailS,
+                      stream: _registrationBloc.emailS,
                       builder: (context, snapshot) => TextField(
                         controller: _tecEmail,
                         style: TextStyle(color: Colors.black, fontSize: 18),
@@ -135,7 +135,7 @@ class _RegistrationPage extends State<RegistrationPage> {
                     alignment: AlignmentDirectional.centerEnd,
                     children: <Widget>[
                       StreamBuilder(
-                        stream: registrationBloc.passS,
+                        stream: _registrationBloc.passS,
                         builder: (context, snapshot) => TextField(
                           obscureText: !_showPass,
                           controller: _tecPass,
@@ -159,7 +159,7 @@ class _RegistrationPage extends State<RegistrationPage> {
                       Padding(
                           padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
                           child: GestureDetector(
-                            onTap: onTapShowPass,
+                            onTap: _onTapShowPass,
                             child: Text(
                               _showPass ? "Hide" : "Show",
                               style: TextStyle(
@@ -177,7 +177,7 @@ class _RegistrationPage extends State<RegistrationPage> {
                     width: double.infinity,
                     height: 56,
                     child: RaisedButton(
-                      onPressed: onClickSignUp,
+                      onPressed: _onClickSignUp,
                       color: Colors.blue,
                       child: Text(
                         "Sign Up",
@@ -214,13 +214,13 @@ class _RegistrationPage extends State<RegistrationPage> {
     );
   }
 
-  void onClickSignUp() {
-    var isValid = registrationBloc.isValid(
+  _onClickSignUp() {
+    var _isValid = _registrationBloc.isValid(
         _tecName.text, _tecPhone.text, _tecEmail.text, _tecPass.text);
-    if (isValid) {
+    if (_isValid) {
       // Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePage()));
       LoadingDialog.showLoadingDialog(context, "Loading...");
-      registrationBloc.signUp(
+      _registrationBloc.signUp(
           _tecName.text, _tecEmail.text, _tecPhone.text, _tecPass.text, () {
         LoadingDialog.hideLoadingDialog(context);
         Navigator.push(
@@ -232,7 +232,7 @@ class _RegistrationPage extends State<RegistrationPage> {
     }
   }
 
-  void onTapShowPass() {
+  _onTapShowPass() {
     setState(() {
       _showPass = !_showPass;
     });
