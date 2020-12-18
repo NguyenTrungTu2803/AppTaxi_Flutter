@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_ap/src/app.dart';
 import 'package:flutter_ap/src/resource/RegistrationPage.dart';
 import 'package:flutter_ap/src/resource/dialog/MessengerDialog.dart';
-import 'HomePage.dart';
+import 'MapHomePage.dart';
 import 'dialog/LoadingDialog.dart';
 
 class LoginPage extends StatefulWidget {
@@ -167,7 +167,7 @@ class _LoginPageState extends State<LoginPage> {
         LoadingDialog.showLoadingDialog(context, "Loading...");
         _mLogin.signIn(_email, _pass, (){
           LoadingDialog.hideLoadingDialog(context);
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()));
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>MapHomePage()));
         }, (msg){
           LoadingDialog.hideLoadingDialog(context);
           MessengerDialog.showMessengerDialog(context, "Sign-In", msg);

@@ -6,7 +6,7 @@ import 'package:flutter_ap/src/resource/LoginPage.dart';
 import 'package:flutter_ap/src/resource/dialog/LoadingDialog.dart';
 import 'package:flutter_ap/src/resource/dialog/MessengerDialog.dart';
 
-import 'HomePage.dart';
+import 'MapHomePage.dart';
 
 class RegistrationPage extends StatefulWidget {
   @override
@@ -224,7 +224,7 @@ class _RegistrationPage extends State<RegistrationPage> {
           _tecName.text, _tecEmail.text, _tecPhone.text, _tecPass.text, () {
         LoadingDialog.hideLoadingDialog(context);
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => HomePage()));
+            context, MaterialPageRoute(builder: (context) => MapHomePage()));
       }, (msg) {
         LoadingDialog.hideLoadingDialog(context);
         MessengerDialog.showMessengerDialog(context, "Sign-In", msg);
