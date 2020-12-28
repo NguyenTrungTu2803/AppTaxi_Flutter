@@ -58,6 +58,13 @@ flutter:
     - assets/ic_phone_black_24dp.png
     - assets/menu_map_black_24dp.png
     - assets/room_map_black_24dp.png
+    - assets/ic_remove_x_18dp.png
+    - assets/ic_map_nav_18dp.png
+    - assets/ic_menu_order_18dp.png
+    - assets/ic_menu_help_18dp.png
+    - assets/ic_menu_logout_18dp.png
+    - assets/ic_menu_notification_18dp.png
+    - assets/ic_menu_history_18dp.png
 #     - images/a_dot_burr.jpeg
 #     - images/a_dot_ham.jpeg
 

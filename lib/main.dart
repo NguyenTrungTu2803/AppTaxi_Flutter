@@ -5,6 +5,7 @@ import 'package:flutter_ap/src/app.dart';
 import 'package:flutter_ap/src/bloc/LoginRegistrationBloc.dart';
 import 'package:flutter_ap/src/resource/LoginPage.dart';
 import 'package:flutter_ap/src/resource/MapHomePage.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,6 +15,6 @@ void main() async {
 
       MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: MapHomePage(),
+        home: LoginPage(),
       )));
 }
