@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ap/src/bloc/LoginRegistrationBloc.dart';
-import 'package:flutter_ap/src/resource/LoginPage.dart';
+import 'file:///D:/SrouceTree_clone/AppTaxi_Flutter/lib/src/resource/Page/LoginPage.dart';
 import 'package:flutter_ap/src/resource/dialog/LoadingDialog.dart';
 import 'package:flutter_ap/src/resource/dialog/MessengerDialog.dart';
 

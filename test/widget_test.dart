@@ -8,7 +8,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ap/src/app.dart';
 import 'package:flutter_ap/src/bloc/LoginRegistrationBloc.dart';
-import 'package:flutter_ap/src/resource/MapHomePage.dart';
+import 'file:///D:/SrouceTree_clone/AppTaxi_Flutter/lib/src/resource/Page/MapHomePage.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:flutter_ap/main.dart';

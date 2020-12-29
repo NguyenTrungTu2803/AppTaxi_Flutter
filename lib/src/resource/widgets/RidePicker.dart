@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ap/src/resource/Page/RidePickerPage.dart';
 
 class RidePicker extends StatefulWidget {
   _RidePicker createState() => _RidePicker();
@@ -22,7 +23,10 @@ class _RidePicker extends State<RidePicker> {
             width: double.infinity,
             height: 50,
             child: FlatButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => RidePickerPage()));
+              },
               child: SizedBox(
                 width: double.infinity,
                 height: double.infinity,

@@ -4,10 +4,10 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_ap/src/app.dart';
-import 'package:flutter_ap/src/resource/RegistrationPage.dart';
+import 'file:///D:/SrouceTree_clone/AppTaxi_Flutter/lib/src/resource/Page/RegistrationPage.dart';
 import 'package:flutter_ap/src/resource/dialog/MessengerDialog.dart';
 import 'MapHomePage.dart';
-import 'dialog/LoadingDialog.dart';
+import '../dialog/LoadingDialog.dart';
 
 class LoginPage extends StatefulWidget {
   @override
